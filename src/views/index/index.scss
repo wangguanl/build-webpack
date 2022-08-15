@@ -1,0 +1,46 @@
+img {
+  max-width: 100%;
+  display: block;
+}
+body {
+  background: url("@/assets/images/bg_01.jpg") no-repeat;
+  user-select: none;
+  text-size-adjust: 100%;
+  -webkit-overflow-scrolling: touch;
+  text-rendering: optimizeLegibility;
+}
+
+div {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: url("@/assets/images/a.png") no-repeat;
+}
+
+p {
+  display: block;
+  line-height: 1;
+}
+
+a {
+  display: block;
+  line-height: 1;
+}
+
+button {
+  transform: translate(20px);
+  display: block;
+  display: flex;
+  line-height: 1;
+  background: skyblue;
+  background: blue;
+  background: skyblue;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  margin-bottom: 10px;
+}
+button {
+  background: blue;
+  margin-bottom: 10px;
+  color: red;
+}
