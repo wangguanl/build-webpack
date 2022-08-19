@@ -1,0 +1,44 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.wrap {
+  display: flex;
+  margin-top: 5%;
+  position: relative;
+}
+
+.checkerboard {
+  display: grid;
+  border: 1px solid #ccc;
+  border-top: 0;
+  border-right: 0;
+}
+.grid {
+  border: 1px solid #ccc;
+  border-left: 0;
+  border-bottom: 0;
+}
+
+.pieces {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: grid;
+  transform: translate(-28px, -28px);
+}
+.piece {
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  cursor: pointer;
+}
+.piece[data-piece="1"] {
+  background: #333;
+  border: 1px solid #ccc;
+}
+.piece[data-piece="2"] {
+  background: #eee;
+  border: 1px solid #ccc;
+}

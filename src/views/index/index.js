@@ -1,17 +1,7 @@
-console.log(process.env.BASE_API)
-console.log(process.env.NODE_ENV)
-console.log(process.env.ENV_TYPE)
-// import 'babel-polyfill';
-if (process.env.ENV_TYPE !== 'prod') {
-  const vConsole = require('vconsole')
-  new vConsole()
-}
-import 'lib-flexible'
-import '@/assets/css/normalize.css'
-import '@/assets/css/reset.scss'
-import './index.scss'
-import _ from "lodash";
-console.log(_)
+import './index.scss';
+import _ from 'lodash';
+
+console.log(_);
 // const data = 5555555555
 
 class Person {
@@ -19,17 +9,17 @@ class Person {
     this.name = 123;
   }
   showName() {
-    alert(this.name)
+    alert(this.name);
   }
 }
 
-const ZS = new Person('ZhangSan')
-ZS.showName()
+const ZS = new Person('ZhangSan');
+ZS.showName();
 
 const arr = [1, 2, 3, 4, 5, 6];
 
-const data = arr.map(val => val),
-  data2 = arr.filter(val => val);
+const data = arr.map((val) => val),
+  data2 = arr.filter((val) => val);
 
 // import a from "./a.js";
 // console.log(a);
@@ -44,25 +34,26 @@ const data = arr.map(val => val),
 // import "./css/reset.css";
 // import syncA from "./sync/a.js";
 // import syncB from "./sync/b.js";
-import generateUUID from "@/utils/unique";
+import generateUUID from '@/utils/unique';
 // const generateUUID = () => import(/* webpackChunkName: "generateUUID" */ "./utils/unique")
-import a from "../async/a";
+import a from '../async/a';
 // setTimeout(async () => {
 //   const { default: generateUUID } = await import(/* webpackChunkName: "my-chunk-name" */ "./utils/unique");
 //   console.log(generateUUID());
 // }, 3000)
-const setTimeoutConsoleA = (A, timer) => new Promise(resolve => setTimeout(() => resolve(A), timer))
-document.getElementById("getB").onclick = async function () {
-  let a = 123
-  console.log(a)
+const setTimeoutConsoleA = (A, timer) =>
+  new Promise((resolve) => setTimeout(() => resolve(A), timer));
+document.getElementById('getB').onclick = async function () {
+  let a = 123;
+  console.log(a);
   a = await setTimeoutConsoleA('setTimeoutConsoleA', 3000);
-  console.log(a)
+  console.log(a);
   // generateUUID().then(res => console.log(res))
   // const { default: generateUUID } = await import("./utils/unique");
   // console.log(132)
   // console.log(132)
   console.log(generateUUID());
-  console.log(data)
+  console.log(data);
   // require("./com.js");
   // require("./a");
   // const { default: sayHelloB } = await import("./async/b.js");
