@@ -36,17 +36,17 @@ module.exports = {
           "Firefox > 20", // Firefox的版本比20更新 >=，< 并且也可以 <= 工作
           "cover 99.5%",  // 提供覆盖的最流行的浏览器
         ] */
-      },
+      }
     },
     cssnano: {
       preset: [
-        "default",
+        'default',
         {
-          discardComments: { removeAll: true },
-        },
-      ],
-    },
-    'postcss-plugin-px2rem': {
+          discardComments: { removeAll: true }
+        }
+      ]
+    }
+    /* 'postcss-plugin-px2rem': {
       rootValue: 750 / 10, //换算基数， 默认100  ，这样的话把根标签的字体规定为1rem为50px,这样就可以从设计稿上量出多少个px直接在代码中写多上px了。
       unitPrecision: 2, //允许REM单位增长到的十进制数字。
       //propWhiteList: [],  //默认值是一个空数组，这意味着禁用白名单并启用所有属性。
@@ -58,7 +58,7 @@ module.exports = {
       mediaQuery: false,  //（布尔值）允许在媒体查询中转换px。
       minPixelValue: 3, //设置要替换的最小像素值(3px会被转rem)。 默认 0
       viewportUnit: 'rem',
-    },
+    }, */
     /* 'postcss-sorting': {
       order: [
         'custom-properties',
@@ -71,5 +71,4 @@ module.exports = {
       'unspecified-properties-position': 'bottom',
     }, */
   }
-
-}
+};

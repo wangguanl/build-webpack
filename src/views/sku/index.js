@@ -1,9 +1,5 @@
-/* import generateUUID from "./utils/generateUUID";
-console.log(generateUUID());
- */
-import generateUUID from "../../utils/unique";
-console.log(generateUUID());
-console.log(456789)
+import generateUUID from '../../utils/unique';
+console.log(456789, generateUUID());
 // setTimeout(async () => {
 //   const { default: generateUUID } = await import(
 //     /* webpackChunkName: "my-chunk-name2" */

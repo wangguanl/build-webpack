@@ -36,7 +36,7 @@ const data = arr.map((val) => val),
 // import syncB from "./sync/b.js";
 import generateUUID from '@/utils/unique';
 // const generateUUID = () => import(/* webpackChunkName: "generateUUID" */ "./utils/unique")
-import a from '../async/a';
+import a from '@/basics/async/a';
 // setTimeout(async () => {
 //   const { default: generateUUID } = await import(/* webpackChunkName: "my-chunk-name" */ "./utils/unique");
 //   console.log(generateUUID());

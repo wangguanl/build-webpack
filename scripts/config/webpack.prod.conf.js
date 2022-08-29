@@ -1,36 +1,22 @@
 const { merge } = require('webpack-merge'),
-  BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin,
+  BundleAnalyzerPlugin =
+    require('webpack-bundle-analyzer').BundleAnalyzerPlugin,
+  MiniCssExtractPlugin = require('mini-css-extract-plugin'),
   commonConfig = require('./webpack.common');
 
 module.exports = merge(commonConfig, {
-  optimization: {
-    minimize: true,
-    minimizer: [
-      ...(() => {
-        let plugins = []
-        if (process.env.ENV_TYPE === 'prod') {
-          const HtmlMinimizerWebpackPlugin = require("html-minimizer-webpack-plugin"),
-            CssMinimizerWebpackPlugin = require("css-minimizer-webpack-plugin"),
-            TerserWebpackPlugin = require('terser-webpack-plugin');
-          plugins = [
-            new HtmlMinimizerWebpackPlugin(),
-            new CssMinimizerWebpackPlugin(),
-            new TerserWebpackPlugin({
-              terserOptions: {
-                compress: {
-                  warnings: false,
-                  drop_console: true,
-                  drop_debugger: true
-                },
-              },
-            }),
-          ]
-        }
-        return plugins;
-      })(),
-    ],
+  output: {
+    // filename: "bundle.js",
+    filename: '[name].[contenthash:8].js',
+    clean: true // 删除dist
+    // publicPath: "/",
   },
   plugins: [
+    new MiniCssExtractPlugin({
+      filename: '[name].[contenthash].css',
+      chunkFilename: '[id].[contenthash].css',
+      ignoreOrder: false
+    }),
     new BundleAnalyzerPlugin({
       //  可以是`server`，`static`或`disabled`。
       //  在`server`模式下，分析器将启动HTTP服务器来显示软件包报告。
@@ -61,5 +47,32 @@ module.exports = merge(commonConfig, {
       statsOptions: null,
       logLevel: 'info' // 日志级别。可以是'信息'，'警告'，'错误'或'沉默'。
     })
-  ]
-})
+  ],
+  optimization: {
+    minimize: true,
+    minimizer: [
+      ...(() => {
+        let plugins = [];
+        if (process.env.ENV_TYPE === 'prod') {
+          const HtmlMinimizerWebpackPlugin = require('html-minimizer-webpack-plugin'),
+            CssMinimizerWebpackPlugin = require('css-minimizer-webpack-plugin'),
+            TerserWebpackPlugin = require('terser-webpack-plugin');
+          plugins = [
+            new HtmlMinimizerWebpackPlugin(),
+            new CssMinimizerWebpackPlugin(),
+            new TerserWebpackPlugin({
+              terserOptions: {
+                compress: {
+                  warnings: false,
+                  drop_console: true,
+                  drop_debugger: true
+                }
+              }
+            })
+          ];
+        }
+        return plugins;
+      })()
+    ]
+  }
+});
