@@ -30,3 +30,6 @@ const obj = new Observer({
   }
 });
 console.log(obj);
+obj.value.arr.push(123);
+console.log(obj);
+obj.value.arr[3].c = 123;
