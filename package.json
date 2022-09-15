@@ -24,12 +24,9 @@
     }
   },
   "lint-staged": {
-    "src/**/*.{js,vue}": [
-      "eslint--fix",
+    "src/**": [
+      "yarn eslint-fix",
       "git add"
-    ],
-    "*.{js,jsx,tsx,ts}": [
-      "npm run lint"
     ]
   },
   "dependencies": {
