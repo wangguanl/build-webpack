@@ -14,12 +14,23 @@
     "build:test": "cross-env NODE_ENV=production ENV_TYPE=test npm run webpack-build",
     "build:stage": "cross-env NODE_ENV=production ENV_TYPE=stage npm run webpack-build",
     "webpack-build": "node ./scripts/webpack.build.js",
-    "build:webpack-build": "cross-env NODE_ENV=production ENV_TYPE=prod webpack --config ./config/webpack.prod.conf.js"
+    "build:webpack-build": "cross-env NODE_ENV=production ENV_TYPE=prod webpack --config ./config/webpack.prod.conf.js",
+    "lint": "eslint",
+    "eslint-fix": "eslint --fix --quiet ./src"
   },
   "config": {
     "commitizen": {
       "path": "node_modules/cz-customizable"
     }
+  },
+  "lint-staged": {
+    "src/**/*.{js,vue}": [
+      "eslint--fix",
+      "git add"
+    ],
+    "*.{js,jsx,tsx,ts}": [
+      "npm run lint"
+    ]
   },
   "dependencies": {
     "core-js": "^3.25.1",
@@ -42,14 +53,18 @@
     "cz-customizable": "^7.0.0",
     "dart-sass": "^1.25.0",
     "dotenv": "^16.0.2",
+    "eslint": "^8.23.1",
+    "eslint-webpack-plugin": "^3.2.0",
     "glob": "^8.0.3",
     "html-minimizer-webpack-plugin": "^4.1.0",
     "html-webpack-plugin": "^5.5.0",
+    "lint-staged": "^13.0.3",
     "mini-css-extract-plugin": "^2.6.1",
     "postcss": "^8.4.16",
     "postcss-loader": "^7.0.1",
     "postcss-plugin-px2rem": "^0.8.1",
     "postcss-preset-env": "^7.8.1",
+    "prettier": "^2.7.1",
     "sass": "^1.54.9",
     "sass-loader": "^13.0.2",
     "style-loader": "^3.3.1",
