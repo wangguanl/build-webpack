@@ -16,7 +16,7 @@
     "webpack-build": "node ./scripts/webpack.build.js",
     "build:webpack-build": "cross-env NODE_ENV=production ENV_TYPE=prod webpack --config ./config/webpack.prod.conf.js",
     "lint": "eslint",
-    "eslint-fix": "eslint --fix --quiet ./src"
+    "eslint-fix": "eslint --fix --quiet ./"
   },
   "config": {
     "commitizen": {
