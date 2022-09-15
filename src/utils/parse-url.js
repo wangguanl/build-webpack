@@ -8,7 +8,7 @@ export const getUrlKey = (url, key) =>
     (new RegExp('[?|&]' + key + '=([^&;]+?)(&|#|;|$)').exec(url) || [
       null,
       '',
-    ])[1].replace(/\+/g, '%20'),
+    ])[1].replace(/\+/g, '%20')
   ) || null;
 
 // 将对象解析为url ?a=1&b=2&c=3&b=4
@@ -57,7 +57,7 @@ export const parseQueryString2 = url =>
       (a, v) => (
         (a[v.slice(0, v.indexOf('='))] = v.slice(v.indexOf('=') + 1)), a
       ),
-      {},
+      {}
     );
 
 /*

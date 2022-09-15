@@ -5,10 +5,7 @@ module.exports = {
     browser: true,
     node: true,
   },
-  extends: [
-    'eslint:recommended',
-    // 'plugin:prettier/recommended'
-  ],
+  extends: ['eslint:recommended', 'plugin:prettier/recommended'],
   overrides: [],
   parserOptions: {
     ecmaVersion: 'latest',
@@ -17,16 +14,21 @@ module.exports = {
       jsx: true,
     },
   },
-  // plugins: ['prettier'],
-
+  plugins: ['prettier'],
   /* 规则详解 https://eslint.bootcss.com/docs/rules/
    * 关闭规则："off" or 0
    * 警告："warn" or 1
    * 报错："error" or 2
    */
   rules: {
-    // 'prettier/prettier': 2,
-
+    'prettier/prettier': [
+      2,
+      {
+        singleQuote: true, // 使用单引号, 默认false(在jsx中配置无效, 默认都是双引号)
+        arrowParens: 'avoid', // 尽可能省略括号。例子：x => x
+        trailingComma: 'es5',
+      },
+    ],
     // Possible Errors 这些规则与 JavaScript 代码中可能的错误或逻辑错误有关
     'arrow-body-style': [2, 'as-needed'], // 要求箭头函数体使用大括号
     'prefer-arrow-callback': 0, // 要求回调函数使用箭头函数

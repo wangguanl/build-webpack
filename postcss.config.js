@@ -36,16 +36,16 @@ module.exports = {
           "Firefox > 20", // Firefox的版本比20更新 >=，< 并且也可以 <= 工作
           "cover 99.5%",  // 提供覆盖的最流行的浏览器
         ] */
-      }
+      },
     },
     cssnano: {
       preset: [
         'default',
         {
-          discardComments: { removeAll: true }
-        }
-      ]
-    }
+          discardComments: { removeAll: true },
+        },
+      ],
+    },
     /* 'postcss-plugin-px2rem': {
       rootValue: 750 / 10, //换算基数， 默认100  ，这样的话把根标签的字体规定为1rem为50px,这样就可以从设计稿上量出多少个px直接在代码中写多上px了。
       unitPrecision: 2, //允许REM单位增长到的十进制数字。
@@ -70,5 +70,5 @@ module.exports = {
       'properties-order': 'alphabetical',
       'unspecified-properties-position': 'bottom',
     }, */
-  }
+  },
 };
