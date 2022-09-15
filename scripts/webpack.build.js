@@ -1,3 +1,3 @@
 const Webpack = require('webpack'),
   webpackConfig = require('./config/webpack.prod.conf');
-Webpack(webpackConfig, (a, b) => {});
+Webpack(webpackConfig /*, (a, b) => {} */);

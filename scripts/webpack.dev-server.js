@@ -1,6 +1,6 @@
-const path = require('path');
-// webpack-dev-server实际上相当于启用了一个express的Http服务器+调用webpack-dev-middleware。它的作用主要是用来伺服资源文件。这个Http服务器和client使用了websocket通讯协议，原始文件作出改动后，webpack-dev-server会用webpack实时的编译，再用webpack-dev-middleware将webpack编译后文件会输出到内存中。适合纯前端项目，很难编写后端服务，进行整合。
-const Webpack = require('webpack'),
+const path = require('path'),
+  // webpack-dev-server实际上相当于启用了一个express的Http服务器+调用webpack-dev-middleware。它的作用主要是用来伺服资源文件。这个Http服务器和client使用了websocket通讯协议，原始文件作出改动后，webpack-dev-server会用webpack实时的编译，再用webpack-dev-middleware将webpack编译后文件会输出到内存中。适合纯前端项目，很难编写后端服务，进行整合。
+  Webpack = require('webpack'),
   webpackConfig = require('./config/webpack.dev.conf'),
   WebpackDevServer = require('webpack-dev-server');
 
@@ -11,7 +11,7 @@ const server = new WebpackDevServer(
     static: {
       directory: path.join(__dirname, 'devDist'),
       publicPath: '',
-      serveIndex: true // 中间件会在查看没有 index.html 文件的目录时生成目录列表
+      serveIndex: true, // 中间件会在查看没有 index.html 文件的目录时生成目录列表
       // 监听文件,文件更改将触发整个页面重新加载。
       /* watch: {
       ignored: "*.txt",
@@ -30,8 +30,8 @@ const server = new WebpackDevServer(
     watchFiles: {
       paths: [`${path.join(__dirname, '..', 'src')}/**`],
       options: {
-        usePolling: false
-      }
+        usePolling: false,
+      },
     },
     webSocketServer: 'ws',
     hot: false, // 启用 webpack 的 热模块替换 特性
@@ -43,7 +43,7 @@ const server = new WebpackDevServer(
       mimeTypes: { 'text/html': ['phtml'] },
       publicPath: '/', // 入口地址
       serverSideRender: true,
-      writeToDisk: true // 把内存的服务生成真实文件
+      writeToDisk: true, // 把内存的服务生成真实文件
     },
 
     // 响应请求时添加header
@@ -51,9 +51,12 @@ const server = new WebpackDevServer(
 
     client: {
       reconnect: true, // 告诉 dev-server 它应该尝试重新连接客户端的次数。当为 true 时，它将无限次尝试重新连接。
-      overlay: { errors: true, warnings: true }, //当出现编译错误或警告时，在浏览器中显示全屏覆盖。
+      overlay: {
+        errors: true,
+        warnings: true,
+      }, // 当出现编译错误或警告时，在浏览器中显示全屏覆盖。
       progress: false, // 在浏览器中以百分比显示编译进度。
-      logging: 'log' // 允许在浏览器中设置日志级别，例如在重载之前，在一个错误之前或者 热模块替换 启用时。
+      logging: 'log', // 允许在浏览器中设置日志级别，例如在重载之前，在一个错误之前或者 热模块替换 启用时。
     },
     // 使用 spdy 提供 HTTP/2 服务。对于 Node 15.0.0 及更高版本，此选项将被忽略，因为 spdy 在这些版本中已被破坏。一旦 Express 支持，开发服务器将迁移到 Node 内置的 HTTP/2。HTTP/2 带有自签名证书：
     http2: false,
@@ -109,15 +112,15 @@ const server = new WebpackDevServer(
            * 返回 false 会为请求产生 404 错误。
            * 返回提供服务的路径，而不是继续代理请求。
            */
-          bypass: function (req, res, proxyOptions) {
+          bypass: function (req /* , res, proxyOptions */) {
             if (req.headers.accept.indexOf('html') !== -1) {
               console.log('Skipping proxy for browser request.');
               return '/index.html';
             }
-          }
-        }
-      }
-    ]
+          },
+        },
+      },
+    ],
     /* // 如果想将多个特定路径代理到同一目标，则可以使用一个或多个带有 context 属性的对象的数组：
   proxy: [
     {

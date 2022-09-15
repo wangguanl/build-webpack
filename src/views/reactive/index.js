@@ -15,19 +15,19 @@ const obj = new Observer({
         a: 123,
         c: {
           d: 456,
-          b: {}
-        }
-      }
+          b: {},
+        },
+      },
     },
-    { c: 855 }
+    { c: 855 },
   ],
   obj: {
     a: 123,
     c: {
       d: 456,
-      b: {}
-    }
-  }
+      b: {},
+    },
+  },
 });
 console.log(obj);
 obj.value.arr.push(123);

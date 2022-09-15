@@ -1,15 +1,16 @@
 const path = require('path'),
   webpack = require('webpack'),
   HtmlWebpackPlugin = require('html-webpack-plugin'),
-  MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const dotenv = require('dotenv'),
+  MiniCssExtractPlugin = require('mini-css-extract-plugin'),
+  // 获取env环境变量
+  dotenv = require('dotenv'),
   glob = require('glob');
 // var Ex = require('extract-text-webpack-plugin'); // https://blog.csdn.net/xfxf996/article/details/82813908
-const { NODE_ENV = 'production', ENV_TYPE } = process.env;
-// 加载.env*文件  默认加载.env文件
-const { parsed } = dotenv.config({
-  path: path.resolve(__dirname, `../../.env.${ENV_TYPE}`)
-});
+const { NODE_ENV = 'production', ENV_TYPE } = process.env,
+  // 加载.env*文件  默认加载.env文件
+  { parsed } = dotenv.config({
+    path: path.resolve(__dirname, `../../.env.${ENV_TYPE}`),
+  });
 console.log(parsed);
 /*
  * 模块热替换：(HMR - hot module replacement)功能会在应用程序运行过程中，替换、添加或删除 模块，而无需重新加载整个页面。主要是通过以下几种方式，来显著加快开发速度：保留在完全重新加载页面期间丢失的应用程序状态。只更新变更内容，以节省宝贵的开发时间。在源代码中 CSS/JS 产生修改时，会立刻在浏览器中进行更新，这几乎相当于在浏览器 devtools 直接更改样式。
@@ -32,13 +33,13 @@ const BaseSrc = path.join(__dirname, '../../src/');
 console.log(BaseSrc);
 
 console.log(NODE_ENV, ENV_TYPE);
-const { entry, htmlPlugin } = (() => {
-  const entry = {};
-  const htmlPlugin = [];
-  glob.sync('./src/views/**').forEach((file) => {
+const entry = {},
+  htmlPlugin = [];
+(() => {
+  glob.sync('./src/views/**').forEach(file => {
     // console.log(file, path.extname(file));
-    const extname = path.extname(file);
-    const [, filename] = file.match(/src\/views\/(.*)/) || [],
+    const extname = path.extname(file),
+      [, filename] = file.match(/src\/views\/(.*)/) || [],
       filepath = path.join(BaseSrc, '../', file);
     // 只会打包index.js， 其他引入由index同步引入或异步引入
     if (extname === '.js' && path.basename(file) === 'index.js') {
@@ -66,8 +67,8 @@ const { entry, htmlPlugin } = (() => {
             renderer: 'webkit',
             'X-UA-Compatible': {
               'http-equiv': 'X-UA-Compatible',
-              content: 'IE=edge,chrome=1'
-            }
+              content: 'IE=edge,chrome=1',
+            },
           },
           /*
            * {'blocking'|'defer'|'module'} || defer
@@ -82,9 +83,9 @@ const { entry, htmlPlugin } = (() => {
             removeRedundantAttributes: true,
             removeScriptTypeAttributes: true,
             removeStyleLinkTypeAttributes: true,
-            useShortDoctype: true
+            useShortDoctype: true,
           },
-          chunks: ['main', filename.replace('.html', '')]
+          chunks: ['main', filename.replace('.html', '')],
           /* chunks: ['main', (()=>{
             if(entry[filename.replace('.html', '')]){
               return entry[filename.replace('.html', '')]
@@ -105,7 +106,7 @@ const { entry, htmlPlugin } = (() => {
 
   return {
     entry,
-    htmlPlugin
+    htmlPlugin,
   };
 })();
 console.log(
@@ -118,7 +119,7 @@ module.exports = {
   devtool: ENV_TYPE === 'prod' ? false : 'source-map', // 正式环境不会生成sourceMap
   entry: {
     main: path.resolve(BaseSrc, 'main'),
-    ...entry
+    ...entry,
     /* index: viewsResolvePath('/index'),
     test: viewsResolvePath('/test'),
     sku: viewsResolvePath('/sku'),
@@ -141,29 +142,29 @@ module.exports = {
         vendor: {
           name: 'chunk-vendors',
           test: /[\\/]node_modules[\\/]/,
-          chunks: 'all'
+          chunks: 'all',
         },
         utilCommon: {
           // 抽离自定义工具库
           name: 'common',
           minSize: 0, // 将引用模块分离成新代码文件的最小体积
           minChunks: 2, // 表示将引用模块如不同文件引用了多少次，才能分离生成新chunk
-          priority: -20
-        }
-      }
-    }
+          priority: -20,
+        },
+      },
+    },
   },
   /* `yarn add assert buffer console-browserify constants-browserify crypto-browserify domain-browser events stream-http https-browserify os-browserify/browser path-browserify punycode process/browser querystring-es3 stream-browserify string_decoder util timers-browserify tty-browserify url vm-browserify browserify-zlib`, */
   resolve: {
     alias: {
-      '@': BaseSrc
+      '@': BaseSrc,
     },
     extensions: ['.js', '.css', '.scss'],
     modules: [
       BaseSrc,
       'node_modules',
-      path.join(__dirname, '../../node_modules')
-    ]
+      path.join(__dirname, '../../node_modules'),
+    ],
   },
   module: {
     rules: [
@@ -202,8 +203,8 @@ module.exports = {
               },
             },
           }, */
-          'sass-loader' // 将 Sass 编译成 CSS
-        ]
+          'sass-loader', // 将 Sass 编译成 CSS
+        ],
       },
       /* {
         test: /\.js$/i,
@@ -212,7 +213,7 @@ module.exports = {
       {
         test: /\.m?js$/,
         include: BaseSrc,
-        loader: 'babel-loader'
+        loader: 'babel-loader',
         /* use: {
           loader: 'babel-loader',
           options: {
@@ -227,32 +228,32 @@ module.exports = {
         type: 'asset',
         parser: {
           dataUrlCondition: {
-            maxSize: 10 * 1024 // 10kb
-          }
+            maxSize: 10 * 1024, // 10kb
+          },
         },
         generator: {
-          filename: 'images/[contenthash][ext][query]'
-        }
+          filename: 'images/[contenthash][ext][query]',
+        },
       },
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/i,
         include: BaseSrc,
         type: 'asset/resource',
         generator: {
-          filename: 'fonts/[contenthash][ext][query]'
-        }
-      }
-    ]
+          filename: 'fonts/[contenthash][ext][query]',
+        },
+      },
+    ],
   },
   plugins: [
     new webpack.DefinePlugin({
       process: {
         env: {
           ...parsed,
-          ENV_TYPE: `'${ENV_TYPE}'`
-        }
-      }
+          ENV_TYPE: `'${ENV_TYPE}'`,
+        },
+      },
     }),
-    ...htmlPlugin
-  ]
+    ...htmlPlugin,
+  ],
 };

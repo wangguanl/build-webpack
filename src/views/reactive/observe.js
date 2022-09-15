@@ -1,6 +1,6 @@
 import Observer from './observer';
 import { isObject, hasOwn } from './util';
-export default function observe(value, asRootData) {
+export default function observe(value) {
   // 如果是数组、对象
   if (!isObject(value)) {
     return;

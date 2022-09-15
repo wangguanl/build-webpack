@@ -6,7 +6,7 @@ console.log(_);
 
 class Person {
   constructor(name) {
-    this.name = 123;
+    this.name = name;
   }
   showName() {
     alert(this.name);
@@ -16,11 +16,10 @@ class Person {
 const ZS = new Person('ZhangSan');
 ZS.showName();
 
-const arr = [1, 2, 3, 4, 5, 6];
-
-const data = arr.map((val) => val),
-  data2 = arr.filter((val) => val);
-
+const arr = [1, 2, 3, 4, 5, 6],
+  data = arr.map(val => val),
+  data2 = arr.filter(val => val);
+console.log(data2);
 // import a from "./a.js";
 // console.log(a);
 /* function component() {
@@ -36,13 +35,13 @@ const data = arr.map((val) => val),
 // import syncB from "./sync/b.js";
 import generateUUID from '@/utils/unique';
 // const generateUUID = () => import(/* webpackChunkName: "generateUUID" */ "./utils/unique")
-import a from '@/basics/async/a';
+// import a from '@/basics/async/a';
 // setTimeout(async () => {
 //   const { default: generateUUID } = await import(/* webpackChunkName: "my-chunk-name" */ "./utils/unique");
 //   console.log(generateUUID());
 // }, 3000)
 const setTimeoutConsoleA = (A, timer) =>
-  new Promise((resolve) => setTimeout(() => resolve(A), timer));
+  new Promise(resolve => setTimeout(() => resolve(A), timer));
 document.getElementById('getB').onclick = async function () {
   let a = 123;
   console.log(a);

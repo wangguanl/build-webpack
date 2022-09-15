@@ -8,14 +8,14 @@ module.exports = merge(commonConfig, {
   output: {
     // filename: "bundle.js",
     filename: '[name].[contenthash:8].js',
-    clean: true // 删除dist
+    clean: true, // 删除dist
     // publicPath: "/",
   },
   plugins: [
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash].css',
       chunkFilename: '[id].[contenthash].css',
-      ignoreOrder: false
+      ignoreOrder: false,
     }),
     new BundleAnalyzerPlugin({
       //  可以是`server`，`static`或`disabled`。
@@ -45,8 +45,8 @@ module.exports = merge(commonConfig, {
       //  例如，您可以使用`source：false`选项排除统计文件中模块的来源。
       //  在这里查看更多选项：https：  //github.com/webpack/webpack/blob/webpack-1/lib/Stats.js#L21
       statsOptions: null,
-      logLevel: 'info' // 日志级别。可以是'信息'，'警告'，'错误'或'沉默'。
-    })
+      logLevel: 'info', // 日志级别。可以是'信息'，'警告'，'错误'或'沉默'。
+    }),
   ],
   optimization: {
     minimize: true,
@@ -64,15 +64,17 @@ module.exports = merge(commonConfig, {
               terserOptions: {
                 compress: {
                   warnings: false,
+                  // eslint-disable-next-line camelcase
                   drop_console: true,
-                  drop_debugger: true
-                }
-              }
-            })
+                  // eslint-disable-next-line camelcase
+                  drop_debugger: true,
+                },
+              },
+            }),
           ];
         }
         return plugins;
-      })()
-    ]
-  }
+      })(),
+    ],
+  },
 });

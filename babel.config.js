@@ -2,7 +2,7 @@
 module.exports = {
   presets: [
     [
-      "@babel/preset-env",
+      '@babel/preset-env',
       {
         /**
          * @useBuiltIns
@@ -21,8 +21,8 @@ module.exports = {
          * 使用 @babel/polyfill 做垫片时候我们需要使用哪个版本的corejs
          * 1,2,core-js@3
          */
-        useBuiltIns: "usage", //true,
-        corejs: "3.19.3",
+        useBuiltIns: 'usage', // true,
+        corejs: '3.19.3',
       },
     ],
     // '@babel/preset-env'

@@ -1,4 +1,5 @@
 import Observer from './observer';
+
 /**
  * 使一个对象转化成可观测对象
  * @param { Object } obj 对象
@@ -26,7 +27,7 @@ export default function defineReactive(data, key, val) {
         return;
       }
       console.log(`修改属性${key}的值为` + newVal);
-      return (val = newVal);
-    }
+      val = newVal;
+    },
   });
 }

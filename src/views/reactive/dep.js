@@ -12,7 +12,7 @@ export default class Dep {
   }
   // 添加一个依赖
   depend() {
-    if (indow.target) {
+    if (window.target) {
       this.addSub(window.target);
     }
   }
@@ -20,6 +20,7 @@ export default class Dep {
   notify() {
     const subs = this.subs.slice();
     console.log(subs);
+
     /* for (let i = 0, l = subs.length; i < l; i++) {
             subs[i].update()
         } */
