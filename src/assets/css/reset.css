@@ -1,0 +1,143 @@
+html,
+body,
+div,
+span,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+pre,
+address,
+code,
+em,
+img,
+small,
+strong,
+sub,
+sup,
+b,
+i,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+form,
+label,
+table,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+footer,
+header,
+menu,
+nav,
+section,
+time,
+audio,
+video,
+input,
+button,
+textarea,
+iframe {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Microsoft YaHei, Helvetica Neue, Helvetica, PingFang SC,
+    Hiragino Sans GB, Arial, sans-serif;
+  font-size: 12px;
+  line-height: 1;
+  color: #333;
+  background: #fff;
+  position: relative;
+}
+
+/* 设置HTML5元素为块 */
+article,
+aside,
+footer,
+header,
+menu,
+nav,
+section {
+  display: block;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: normal;
+  font-size: 12px;
+  color: #000;
+}
+
+a {
+  text-decoration: none;
+  color: #333;
+}
+
+img {
+  border: none;
+  vertical-align: middle;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+i {
+  font-style: normal;
+}
+
+input,
+select,
+button {
+  font-family: inherit;
+  font-size: inherit;
+  font-style: inherit;
+  font-weight: inherit;
+  line-height: 1;
+  vertical-align: middle;
+  outline: none;
+}
+
+textarea {
+  font-family: inherit !important;
+  font-size: 12px !important;
+  font-style: inherit !important;
+  font-weight: inherit !important;
+  resize: none !important;
+  outline: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+pre {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+iframe {
+  border: none;
+  height: 100%;
+  width: 100%;
+}

@@ -15,6 +15,11 @@ module.exports = {
     },
   },
   plugins: ['prettier'],
+  globals: {
+    $: 'readonly',
+    jquery: 'off',
+    jQuery: 'off',
+  },
   /* 规则详解 https://eslint.bootcss.com/docs/rules/
    * 关闭规则："off" or 0
    * 警告："warn" or 1
@@ -68,7 +73,7 @@ module.exports = {
     yoda: [2, 'never'], // 要求或者禁止Yoda条件 https://eslint.bootcss.com/docs/rules/yoda
 
     // 变量声明
-    'no-shadow': 2, // 禁止变量声明与外层作用域的变量同名
+    // 'no-shadow': 2, // 禁止变量声明与外层作用域的变量同名
 
     // 代码风格
     'array-bracket-spacing': 2, // 强制数组方括号中使用一致的空格
@@ -126,7 +131,7 @@ module.exports = {
       },
     ],
     'new-parens': 2, // 要求调用无参构造函数时带括号
-    'newline-per-chained-call': 2, // 要求方法链中每个调用都有一个换行符
+    // 'newline-per-chained-call': 2, // 要求方法链中每个调用都有一个换行符
     'no-multiple-empty-lines': [1, { max: 2 }], // 不允许多个空行
     'no-trailing-spaces': 2, // 禁用行尾空白
     'no-whitespace-before-property': 2, // 禁止属性前有空白

@@ -2,8 +2,7 @@ import a from './js/a';
 async function render(template, data) {
   const b = await import(
     './js/b'
-
-    /* webpackChunkName: "my-chunk-name" */
+    /* webpackChunkName: "single-chunk_b" */
   );
   console.log(b);
   b.default();

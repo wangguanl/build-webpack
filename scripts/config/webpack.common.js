@@ -34,7 +34,7 @@ console.log(BaseSrc);
 
 console.log(NODE_ENV, ENV_TYPE);
 const entry = {},
-  htmlPlugin = [];
+  HtmlWebpackPlugins = [];
 (() => {
   glob.sync('./src/views/**').forEach(file => {
     // console.log(file, path.extname(file));
@@ -46,7 +46,8 @@ const entry = {},
       entry[filename.replace('.js', '')] = filepath;
     } else if (extname === '.html') {
       // console.log(filename);
-      htmlPlugin.push(
+      // https://github.com/jantimon/html-webpack-plugin#options
+      HtmlWebpackPlugins.push(
         new HtmlWebpackPlugin({
           filename,
           template: filepath, // 自定义 html 模板
@@ -106,13 +107,10 @@ const entry = {},
 
   return {
     entry,
-    htmlPlugin,
+    HtmlWebpackPlugins,
   };
 })();
-console.log(
-  entry
-  // htmlPlugin
-);
+// console.log(entry, HtmlWebpackPlugins);
 
 module.exports = {
   mode: NODE_ENV,
@@ -125,46 +123,6 @@ module.exports = {
     sku: viewsResolvePath('/sku'),
     mustache: viewsResolvePath('/mustache'),
     child: viewsResolvePath('/mustache/child') */
-  },
-  externals: {
-    // lodash: 'lodash',
-    // jquery: 'jQuery'
-  },
-  optimization: {
-    moduleIds: 'deterministic', // named
-    runtimeChunk: 'single',
-    // runtimeChunk: {
-    //   name: (entryPoint) => `runtime-chunk~${entryPoint.name}`,
-    // },
-    splitChunks: {
-      chunks: 'all', // async表示抽取异步模块，all表示对所有模块生效，initial表示对同步模块生效
-      cacheGroups: {
-        vendor: {
-          name: 'chunk-vendors',
-          test: /[\\/]node_modules[\\/]/,
-          chunks: 'all',
-        },
-        utilCommon: {
-          // 抽离自定义工具库
-          name: 'common',
-          minSize: 0, // 将引用模块分离成新代码文件的最小体积
-          minChunks: 2, // 表示将引用模块如不同文件引用了多少次，才能分离生成新chunk
-          priority: -20,
-        },
-      },
-    },
-  },
-  /* `yarn add assert buffer console-browserify constants-browserify crypto-browserify domain-browser events stream-http https-browserify os-browserify/browser path-browserify punycode process/browser querystring-es3 stream-browserify string_decoder util timers-browserify tty-browserify url vm-browserify browserify-zlib`, */
-  resolve: {
-    alias: {
-      '@': BaseSrc,
-    },
-    extensions: ['.js', '.css', '.scss'],
-    modules: [
-      BaseSrc,
-      'node_modules',
-      path.join(__dirname, '../../node_modules'),
-    ],
   },
   module: {
     rules: [
@@ -179,31 +137,28 @@ module.exports = {
       }, */
       {
         test: /\.(s[ac]ss|css)$/i,
-        include: BaseSrc,
         use: [
           /* ENV_TYPE === 'dev' ?
             "style-loader" // 将 JS 字符串生成为 style 节点
             : MiniCssExtractPlugin.loader, */
           MiniCssExtractPlugin.loader,
-          'css-loader', // 将 CSS 转化成 CommonJS 模块
-          'postcss-loader',
-          /* {
-            // 将 CSS 添加浏览器前缀 等作用(https://www.postcss.com.cn/)
-            loader: "postcss-loader",
+          {
+            loader: 'css-loader',
             options: {
-              postcssOptions: {
-                plugins: [
-                  [
-                    "postcss-preset-env",
-                    {
-                      // 其他选项
-                    },
-                  ],
-                ],
-              },
+              esModule: true,
             },
-          }, */
-          'sass-loader', // 将 Sass 编译成 CSS
+          }, // 将 CSS 转化成 CommonJS 模块
+          'postcss-loader', // 将 CSS 添加浏览器前缀 等作用(https://www.postcss.com.cn/)
+          // 将 Sass 编译成 CSS
+          {
+            loader: 'sass-loader',
+            options: {
+              additionalData: `
+                @import "@/styles/mixin.scss";
+                @import "@/styles/BEM.scss";
+              `,
+            },
+          },
         ],
       },
       /* {
@@ -245,7 +200,61 @@ module.exports = {
       },
     ],
   },
+  resolve: {
+    alias: {
+      '@': BaseSrc,
+    },
+    extensions: ['.js', '.css', '.scss'],
+    modules: [
+      BaseSrc,
+      'node_modules',
+      path.join(__dirname, '../../node_modules'),
+    ],
+  },
+  /* externals: {
+    lodash: 'lodash',
+    jquery: 'jQuery',
+  }, */
+  optimization: {
+    runtimeChunk: 'single',
+    splitChunks: {
+      chunks: 'all', // async表示抽取异步模块，all表示对所有模块生效，initial表示对同步模块生效
+      cacheGroups: {
+        /* vendors: {
+          name: 'split-chunks_modules',
+          test: /[\\/]node_modules[\\/]/,
+          chunks: 'all',
+        }, */
+        // 核心库
+        libs: {
+          name: 'split-chunks_modules-libs',
+          test: /[\\/]node_modules[\\/](jquery|petite-vue|lib-flexible)[\\/]/,
+          chunks: 'all',
+        },
+        // 插件
+        plugins: {
+          name: 'split-chunks_modules-plugins',
+          test: /[\\/]node_modules[\\/](swiper)[\\/]/,
+          chunks: 'all',
+        },
+        // 工具函数
+        utils: {
+          name: 'split-chunks_modules-utils',
+          test: /[\\/]node_modules[\\/](lodash)[\\/]/,
+          chunks: 'all',
+        },
+        // 抽离自定义工具库
+        commons: {
+          name: 'split-chunks_common-utils',
+          minSize: 0, // 将引用模块分离成新代码文件的最小体积
+          minChunks: 2, // 表示将引用模块如不同文件引用了多少次，才能分离生成新chunk
+          priority: -20,
+        },
+      },
+    },
+  },
   plugins: [
+    // 向应用程序注入环境变量
     new webpack.DefinePlugin({
       process: {
         env: {
@@ -254,6 +263,13 @@ module.exports = {
         },
       },
     }),
-    ...htmlPlugin,
+    // 注入插件
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      jquery: 'jquery',
+      'window.jQuery': 'jquery',
+    }),
+    ...HtmlWebpackPlugins,
   ],
 };

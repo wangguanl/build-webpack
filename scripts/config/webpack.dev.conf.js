@@ -5,12 +5,16 @@ const path = require('path'),
   { CleanWebpackPlugin } = require('clean-webpack-plugin'),
   ESLintPlugin = require('eslint-webpack-plugin');
 module.exports = merge(commonConfig, {
-  // devtool: false,
+  devtool: false,
   output: {
     path: path.resolve(__dirname, '../../dev/'),
     filename: '[name].js',
     clean: true, // 删除dist
     // publicPath: "/",
+  },
+  optimization: {
+    chunkIds: 'named',
+    moduleIds: 'named',
   },
   plugins: [
     new MiniCssExtractPlugin({

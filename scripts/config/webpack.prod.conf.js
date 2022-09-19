@@ -49,6 +49,7 @@ module.exports = merge(commonConfig, {
     }),
   ],
   optimization: {
+    moduleIds: 'deterministic',
     minimize: true,
     minimizer: [
       ...(() => {

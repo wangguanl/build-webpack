@@ -1,83 +1,48 @@
 // 单行省略
 %text-ellipsis {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 // 多行省略
 @mixin moreline-ellipsis($line: 2) {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: $line;
-    -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: $line;
+  -webkit-box-orient: vertical;
 }
 // 换行
 %pre {
-    white-space: pre-wrap;
-    word-break: break-all;
+  white-space: pre-wrap;
+  word-break: break-all;
 }
-// 鼠标手势
-%pointer {
-    cursor: pointer;
-}
+
 // 清除浮动
 %clearfix {
-    &:after {
-        content: "";
-        display: table;
-        clear: both;
-    }
+  &:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
 }
 
-// https://blog.csdn.net/weixin_35730901/article/details/112224665
-// ITCSS
-// OOCSS
-
-@mixin bg-image($url) {
-    background-image: url($url + "@2x.png");
-    @media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
-        background-image: url($url + "@3x.png");
-    }
-}
-
-/*默认大小*/
-.photo {
-    background-image: url(image100.png);
-}
-/* 如果设备像素大于等于2，则用2倍图 */
-@media screen and (-webkit-min-device-pixel-ratio: 2), screen and (min--moz-device-pixel-ratio: 2) {
-    .photo {
-        background-image: url(image200.png);
-        background-size: 100px 100px;
-    }
-}
-/* 如果设备像素大于等于3，则用3倍图 */
-@media screen and (-webkit-min-device-pixel-ratio: 3), screen and (min--moz-device-pixel-ratio: 3) {
-    .photo {
-        background-image: url(image300.png);
-        background-size: 100px 100px;
-    }
-}
-.photo {
-    width: 100px;
-    height: 100px;
-}
-
-div {
-    width: 30px;
-    height: 20px;
-    background-size: 30px 20px;
-    background-repeat: no-repeat;
-    @include bg-image("special_1");
-}
-
-.image {
-    background-image: url(image@1x.png);
-}
-@media (min-resolution: 2dppx) {
-    .image {
-        background-image: url(image@2x.png);
-    }
+@mixin ratio-image($url) {
+  background-image: url($url);
+  // 如果设备像素大于等于2，则用2倍图
+  @media (-webkit-min-device-pixel-ratio: 2), (-moz-min-device-pixel-ratio: 2) {
+    background-image: url($url + '@2x');
+  }
+  // 如果设备像素大于等于3，则用3倍图
+  @media (-webkit-min-device-pixel-ratio: 3), (-moz-min-device-pixel-ratio: 3) {
+    background-image: url($url + '@3x');
+  }
+  // 如果设备像素大于等于2，则用2倍图
+  @media (min-resolution: 2dppx) {
+    background-image: url($url + '@2x');
+  }
+  @media (min-resolution: 3dppx) {
+    background-image: url($url + '@3x');
+  }
 }
