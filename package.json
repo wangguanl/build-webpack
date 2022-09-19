@@ -23,6 +23,12 @@
       "path": "node_modules/cz-customizable"
     }
   },
+  "lint-staged": {
+    "src/**": [
+      "npm run eslint-fix",
+      "git add ."
+    ]
+  },
   "dependencies": {
     "core-js": "^3.25.1",
     "jquery": "^3.6.1",
