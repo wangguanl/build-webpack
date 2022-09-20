@@ -9,6 +9,8 @@ function tow(n) {
   return n >= 0 && n < 10 ? '0' + n : '' + n;
 }
 
+console.log(1);
+
 // @url 可传入 ?a=1&b=2&c=3&b=4 解析为对象 {a:1, b:2, c:3, d:4}
 const parseQueryString = url => {
   var json = {},
