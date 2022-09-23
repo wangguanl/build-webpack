@@ -21,7 +21,6 @@ console.log(parsed);
  * 删除终端多余logo
  * 后端代码打包编译
  * 微前端、ssr
- * 生成cli脚手架
  * 生成雪碧图
  * 生成依赖预览图
  * 配置babel、postcss

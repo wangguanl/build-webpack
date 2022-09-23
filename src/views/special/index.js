@@ -1,15 +1,11 @@
-/* eslint-disable no-undef */
-// import 'normalize.css';
+import './index.scss';
 import Swiper from 'swiper';
 import 'swiper/css';
 // import 'dyrs__css_reset.css';
-import './index.scss';
 
 function tow(n) {
   return n >= 0 && n < 10 ? '0' + n : '' + n;
 }
-
-console.log(1);
 
 // @url 可传入 ?a=1&b=2&c=3&b=4 解析为对象 {a:1, b:2, c:3, d:4}
 const parseQueryString = url => {
